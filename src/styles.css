@@ -1,0 +1,88 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 50px;
+    margin: 0px;
+}
+
+header,
+.projectsContainer,
+.taskContainer {
+    padding: 20px;
+}
+
+h1 {
+    color: orange;
+}
+
+.container {
+    display: flex;
+    flex-grow: 1;
+}
+
+.projectsContainer {
+    background-color: orange;
+    flex-grow: 1;
+}
+
+.addProject,
+.addTodo {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 15px;
+}
+
+.addProject > h2 {
+    font-size: 30px;
+}
+
+.taskContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: lightgrey;
+    flex-grow: 8;
+    align-items: center;
+    gap: 20px;
+}
+
+.taskContainer > h2 {
+    font-size: 40px;
+}
+
+.addTodo > h3 {
+    font-size: 23px;
+}
+
+button {
+    width: 25px;
+    height: 25px;
+    border: 0px;
+    border-radius: 50%;
+    color: orange;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.addTodo > button {
+    color: lightgrey;
+    background: black;
+}
