@@ -8,6 +8,51 @@
 </head>
 
 <body>
+    <div id="projectModal" class="modal">
+
+        <div class="modal-content">
+            <div class="heading">
+                <span class="close">&times;</span>
+                <h1>New Project</h1>
+            </div>
+            <hr>
+            <form id="projectForm">
+                <label for="pname">Project name</label>
+                <input type="text" id="pname" name="pname" required>
+                <button type="submit">Add Project</button>
+            </form>
+            <br>
+        </div>
+    </div>
+    <div id="todoModal" class="modal">
+
+        <div class="modal-content">
+            <div class="heading">
+                <span class="close">&times;</span>
+                <h1>Add Todo</h1>
+            </div>
+            <hr>
+            <form id="todoForm">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+                <label for="duedate">Due Date</label>
+                <input type="date" id="duedate" required>
+                <fieldset class="priorityFieldset">
+                    <legend>Priority</legend>
+                    <label for="low">Low</label>
+                    <input type="radio" id="low" name="priority" value="Low" checked>
+                    <label for="medium">Medium</label>
+                    <input type="radio" id="medium" name="priority" value="Medium">
+                    <label for="high">High</label>
+                    <input type="radio" id="high" name="priority" value="High">
+                </fieldset>
+                <label for="notes">Notes:</label required>
+                <textarea rows="5" cols="15" id="notes" placeholder="Notes for this todo..." spellcheck="true"></textarea>
+                <button type="submit">Add todo</button>
+            </form>
+            <br>
+        </div>
+    </div>
     <header>
         <h1>TODO LIST</h1>
     </header>
@@ -24,12 +69,12 @@
         </div>
 
         <div class="taskContainer">
-            <h2>Tasks</h2>
+            <h2 id="todoTitle">Tasks</h2>
             <div class="addTodo">
                 <h3>Add Todo</h3>
-                <button id="tasksButton">+</button>
+                <button id="todoButton">+</button>
             </div>
-            <div class="Todos">
+            <div class="todos">
 
             </div>
         </div>
