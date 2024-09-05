@@ -6,11 +6,29 @@ export const app = new AppLogic();
 app.initEventListener();
 app.initProject(); 
 
-
-// TODO:
-// 1. Fix checkbox
-    // 1.1 When checked: mark over todo Title and dueDate, make background-color darker.
-// 2. Make edit todo work
-    // 2.1 Add edit event handler
-    // 2.2 Make edit form 
-    // 2.3 Open edit form on click
+// Improvements to be done: 
+// 
+// event class should only handle event listeners and 
+// UI interactions while logic should move to todo, project, projectHandler.
+//
+// Get a specific class to handle Todos.
+//
+// 
+/* Better structure:
+/src
+  /components
+    /todo
+      todo.js
+      todoEvents.js
+    /project
+      project.js
+      projectEvents.js
+    /ui
+      modal.js
+      render.js
+  /app
+    appLogic.js
+  /storage
+    localStorageHandler.js
+index.js
+ */

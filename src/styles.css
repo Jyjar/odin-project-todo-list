@@ -93,6 +93,7 @@ h1 {
 .modal {
     display: none;
     position: fixed;
+    z-index: 1;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -192,11 +193,11 @@ form > button {
     flex-direction: column;
     width: 100%;
     gap: 20px;
-    background-color: lightgreen;
 }
 
 .todoElement {
     display: flex;
+    background-color: lightgreen;
     justify-content: space-between;
     align-items: center;
     border: 2px solid black;
@@ -207,21 +208,28 @@ form > button {
 .todoElement > div:first-child {
     display: flex;
     gap: 20px;
+}
 
+.todoElement > div > div > p {
+    font-size: 16px;
 }
 
 .contentIcon {
     width: 40px;
 }
 
+.contentIcon:hover {
+    cursor: pointer;
+}
+
 .highPriorityDiv,
 .mediumPriorityDiv,
 .lowPriorityDiv {
     display: flex;
+    max-width: 100px;
     justify-content: center;
     border: solid 1px black;
     border-radius: 10px;
-    padding: 5px;
     font-size: 15px;
 }
 

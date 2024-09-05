@@ -44,7 +44,6 @@ class Render {
         todoTitle.textContent = project.name;
         
         const projectTodos = project.todos;
-
         const todosDiv = document.querySelector(".todos");
 
         projectTodos.forEach((todo) => {
@@ -59,7 +58,14 @@ class Render {
             inputCheckBox.type = "checkbox";
             inputCheckBox.className = "todo-checkbox";
             inputCheckBox.name = "todo-checkbox";
+            inputCheckBox.checked = todo.isCompleted;
+            app.event.checkBoxListener(inputCheckBox, todo);
             todoInfo.appendChild(inputCheckBox);
+
+            if (todo.isCompleted) {
+                todoElement.style.filter = "brightness(80%)";
+                todoElement.style.textDecoration = "line-through";
+            }
 
             const div = document.createElement("div");
             const title = document.createElement("h3");
@@ -71,7 +77,6 @@ class Render {
             todoInfo.appendChild(div);
 
             const priority = document.createElement("div");
-            console.log(todo);
             if (todo.priority === "High") {
                 priority.className = "highPriorityDiv";
             } else if(todo.priority === "Medium") {
@@ -82,23 +87,39 @@ class Render {
             priority.textContent = todo.priority;
             div.appendChild(priority);
 
+            const notes = document.createElement("p");
+            notes.textContent = `Notes: ${todo.notes}`;
+            div.appendChild(notes);
+
             const btnRow = document.createElement("div");
             const trashCan = document.createElement("img");
             trashCan.src = "https://anjahrot.github.io/Todo-List/b4a7b26be64c05d0f239.svg"
             trashCan.className = "contentIcon trashCan";
             btnRow.appendChild(trashCan);
             app.event.deleteTodoListener(trashCan);
-            // Lägg till event att delete render
-            // Lägg till event att delete från array
 
             const edit = document.createElement("img");
             edit.src = "https://anjahrot.github.io/Todo-List/67d7ac9ac639190752c4.svg"
             edit.className = "contentIcon";
             btnRow.appendChild(edit);
 
+            app.event.editModalListener(edit, todo);
+
             todoElement.appendChild(btnRow);
             
         })
+    }
+
+    updateTodosStyle(isChecked, checkBox) {
+        const todosDiv = checkBox.closest('.todoElement');
+        const title = checkBox.parentElement;
+        if (isChecked) {
+            todosDiv.setAttribute("style", "filter: brightness(80%)");
+            title.setAttribute("style", "text-decoration: line-through")
+        } else {
+            todosDiv.setAttribute("style", "background-color: lightgreen");
+            title.setAttribute("style", "text-decoration: ")
+        }
     }
 }
 

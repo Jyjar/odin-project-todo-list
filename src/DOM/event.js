@@ -1,6 +1,10 @@
 import { app } from "../index.js";
 
 class Event {
+    constructor() {
+        this.editingTodo = null;
+    }
+
     addProjectListener() {
         const projectButton = document.querySelector("#projectsButton");
         projectButton.addEventListener("click", () => {
@@ -12,6 +16,7 @@ class Event {
     addTodoListener() {
         const todoButton = document.querySelector("#todoButton");
         todoButton.addEventListener("click", () => {
+            this.editingTodo = null;
             const modal = document.getElementById("todoModal");
             app.modal.openModal(modal);
         });
@@ -33,8 +38,33 @@ class Event {
     projectListener(projectElement, project) {
         projectElement.addEventListener("click", () => {
             app.render.refreshTodos();
+            app.render.renderTodos(project)
             app.selectedProject = project;
         })
+    }
+
+    checkBoxListener(checkBox, todo) {
+        checkBox.addEventListener("change", (e) => {
+            const isChecked = e.currentTarget.checked
+            todo.isCompleted = isChecked;
+            app.render.updateTodosStyle(isChecked, checkBox);
+
+            app.projectHandler.saveProjectState();
+        });
+    }
+
+    editModalListener(editIcon, todo) {
+        editIcon.addEventListener("click", () => {
+            this.editingTodo = todo;  // Set the todo being edited
+            const modal = document.getElementById("todoModal");
+
+            document.querySelector("#title").value = todo.title;
+            document.querySelector("#duedate").value = todo.dueDate;
+            document.querySelector(`input[name="priority"][value="${todo.priority}"]`).checked = true;
+            document.querySelector("#notes").value = todo.notes;
+
+            app.modal.openModal(modal);
+        });
     }
 
     initModalEventListeners() {
@@ -52,7 +82,7 @@ class Event {
             const modal = e.target.closest(".modal");
             const input = modal.querySelector("input");
             const newProject = app.projectHandler.addProject(input.value);
-            app.render.renderProject(newProject);
+            app.render.renderProject(newProject)
             input.value = "";
             app.modal.closeModal(modal);
 
@@ -63,19 +93,31 @@ class Event {
         const todoForm = document.querySelector("#todoForm");
         todoForm.addEventListener("submit", (e) => {
             e.preventDefault();
-
             const modal = e.target.closest(".modal");
+
             const title = modal.querySelector("#title").value;
             const dueDate = modal.querySelector("#duedate").value;
             const priority = modal.querySelector('input[name="priority"]:checked').value;
-            console.log(priority);
             const notes = modal.querySelector("#notes").value;
 
             const project = app.selectedProject;
-            const newTodo = project.addTodo(title, dueDate, priority, notes);
-            
+
+            if (this.editingTodo) {
+                this.editingTodo.title = title;
+                this.editingTodo.dueDate = dueDate;
+                this.editingTodo.priority = priority;
+                this.editingTodo.notes = notes;
+            } else {
+                project.addTodo(title, dueDate, priority, notes);
+            }
+
+            app.projectHandler.saveProjectState();
+
             app.render.refreshTodos();
             app.render.renderTodos(project);
+
+            todoForm.reset();
+
             app.modal.closeModal(modal);
         });
     }

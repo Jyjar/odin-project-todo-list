@@ -12,18 +12,6 @@ class Project {
         this.todos.push(newTodo);
         return newTodo;
     }
-
-    toggleComplete() {
-
-    }
-
-    editTodo() {
-
-    }
-
-    deleteTodo() {
-
-    }
 }
 
 export { Project };
